@@ -6,14 +6,14 @@
 /*   By: rnakatan <rnakatan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 07:41:57 by rnakatan          #+#    #+#             */
-/*   Updated: 2024/09/24 07:41:59 by rnakatan         ###   ########.fr       */
+/*   Updated: 2024/09/24 07:55:44 by rnakatan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "../libft/libft.h"
+# include "../Libft/libft.h"
 # include <limits.h>
 # include <stdbool.h>
 # include <stdint.h>

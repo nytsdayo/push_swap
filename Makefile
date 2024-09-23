@@ -1,9 +1,9 @@
-CC = gcc -g
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 NAME = push_swap
 
-LIBFT_DIR = libft/
+LIBFT_DIR = Libft/
 LIBFT = $(LIBFT_DIR)libft.a
 
 SRCS_DIR = srcs/
