@@ -5,108 +5,116 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rnakatan <rnakatan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/23 16:54:18 by rnakatan          #+#    #+#             */
-/*   Updated: 2024/09/01 16:03:24 by rnakatan         ###   ########.fr       */
+/*   Created: 2024/09/24 02:49:08 by rnakatan          #+#    #+#             */
+/*   Updated: 2024/09/24 06:55:31 by rnakatan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 #include <stdio.h>
 
-void		push_swap(t_pair_stack *pair_stack);
-static int	is_sorted(t_pair_stack *pair_stack);
-
-int	main(int argc, char **argv)
+static void	three_sort(t_stacks *stacks)
 {
-	t_pair_stack	pair_stack;
-
-	arg_check(argc, argv);
-	set_stack(&pair_stack, argc, argv);
-	push_swap(&pair_stack);
-	return (0);
+	if (stacks->size_a == 3)
+	{
+		if (stacks->stack_a[2] != stacks->size_b + 2)
+		{
+			if (stacks->stack_a[1] == stacks->size_b + 2)
+				rotate_rr(stacks, "rra");
+			else
+				rotate_r(stacks, "ra");
+		}
+		if (stacks->stack_a[0] > stacks->stack_a[1])
+			swap(stacks, "sa");
+	}
+	if (stacks->size_b == 3)
+	{
+		if (stacks->stack_b[2] != 0)
+		{
+			if (stacks->stack_b[1] == 0)
+				rotate_rr(stacks, "rrb");
+			else
+				rotate_r(stacks, "rb");
+		}
+		if (stacks->stack_b[0] < stacks->stack_b[1])
+			swap(stacks, "sb");
+	}
 }
 
-void	push_swap(t_pair_stack *pair_stack)
+static void	four_to_six_sort(t_stacks *stacks)
 {
-	int		i;
-	t_list	*serach;
-	int		a_count;
-	int		current_index;
+	int	half;
+	int	i;
 
-	if (is_sorted(pair_stack))
+	half = stacks->size_a / 2;
+	i = stacks->size_a;
+	while (i > 0)
 	{
-		return ;
+		if (stacks->stack_a[0] >= half)
+			rotate_r(stacks, "ra");
+		else
+			pb(stacks);
+		i--;
 	}
-	i = 0;
-	a_count = pair_stack->stack_a.count_value;
-	while (i < a_count)
+	if (stacks->size_a == 2 && stacks->stack_a[0] > stacks->stack_a[1])
+		swap(stacks, "sa");
+	if (stacks->size_b == 2 && stacks->stack_b[0] < stacks->stack_b[1])
+		swap(stacks, "sb");
+	three_sort(stacks);
+	while (stacks->size_b > 0)
+		pa(stacks);
+}
+
+static int	get_bit_size(int size)
+{
+	int	bit_size;
+
+	bit_size = 0;
+	while (size > 0)
 	{
-		serach = pair_stack->stack_a.cycle.top;
-		current_index = serach->index;
-		(void)current_index;
-		while (serach->order != i)
-			serach = serach->next;
-		// if (current_index - serach->index < pair_stack->stack_a.count_value
-		/// 2)
-		// 	while (pair_stack->stack_a.cycle.top->order != i)
-		// 		ra(pair_stack);
-		// else
-		// 	while (pair_stack->stack_a.cycle.top->order != i)
-		// 		rra(pair_stack);
-		while (pair_stack->stack_a.cycle.top->order != i)
-			ra(pair_stack);
-		pb(pair_stack);
+		bit_size++;
+		size /= 2;
+	}
+	return (bit_size);
+}
+
+static void	bainary_radix_sort(t_stacks *stacks)
+{
+	int	i;
+	int	bit_size;
+	int	size;
+
+	bit_size = get_bit_size(stacks->size_a);
+	i = 0;
+	while (i < bit_size && !ft_issort(stacks->stack_a, stacks->size_a))
+	{
+		size = stacks->size_a;
+		while (size > 0 && stacks->size_a > 0 && !ft_issort(stacks->stack_a,
+				stacks->size_a))
+		{
+			if ((stacks->stack_a[0] >> i) & 1)
+				rotate_r(stacks, "ra");
+			else
+				pb(stacks);
+			size--;
+		}
+		while (stacks->size_b > 0)
+			pa(stacks);
 		i++;
 	}
-	i = 0;
-	while (i < pair_stack->stack_b.count_value)
-		pa(pair_stack);
-	// i = 0;
-	// while (i < pair_stack->stack_a.count_value)
-	// {
-	// 	pair_stack->stack_a.cycle.top = pair_stack->stack_a.cycle.top->next;
-	// 	printf("order: %d\n", pair_stack->stack_a.cycle.top->order);
-	// 	i++;
-	// }
 }
-// void	push_swap(t_pair_stack *pair_stack)
-// {
-// 	int	count;
 
-// 	if (is_sorted(pair_stack))
-// 		return ;
-// 	count = pair_stack->stack_a.count_value;
-// 	if (count == 2)
-// 	{
-// 		if (pair_stack->stack_a.cycle.top->order == 2)
-// 			sa(pair_stack);
-// 	}
-// 	else if (count == 3)
-// 		case_values_three(pair_stack);
-// 	else if (count == 4)
-// 		case_values_four(pair_stack);
-// 	for (int i = 0; i < pair_stack->stack_a.count_value; i++)
-// 	{
-// 		printf("order: %d\n", pair_stack->stack_a.cycle.top->order);
-// 		pair_stack->stack_a.cycle.top = pair_stack->stack_a.cycle.top->next;
-// 	}
-// }
-
-static int	is_sorted(t_pair_stack *pair_stack)
+void	push_swap(t_stacks stacks)
 {
-	t_list	*current;
-	int		count;
-
-	current = pair_stack->stack_a.cycle.top;
-	count = pair_stack->stack_a.count_value;
-	while (count > 0)
+	if (stacks.size_a == 2)
 	{
-		if (current->order > current->next->order)
-			return (0);
-		count--;
-		if (current)
-			current = current->next;
+		if (stacks.stack_a[0] > stacks.stack_a[1])
+			swap(&stacks, "sa");
 	}
-	printf("success\n");
-	return (1);
+	else if (stacks.size_a == 3)
+		three_sort(&stacks);
+	else if (stacks.size_a <= 6)
+		four_to_six_sort(&stacks);
+	else
+		bainary_radix_sort(&stacks);
 }
