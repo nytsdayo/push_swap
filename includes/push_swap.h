@@ -6,7 +6,7 @@
 /*   By: rnakatan <rnakatan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 07:41:57 by rnakatan          #+#    #+#             */
-/*   Updated: 2024/09/24 07:55:44 by rnakatan         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:32:27 by rnakatan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,32 @@
 
 typedef struct s_stacks
 {
-	int	*stack_a;
-	int	*stack_b;
-	int	size_a;
-	int	size_b;
-}		t_stacks;
+	int			*stack_a;
+	int			*stack_b;
+	int			size_a;
+	int			size_b;
+}				t_stacks;
 
-int		*set_args(int argc, char **argv);
-int		ft_issort(int *array, int size);
-void	push_swap(t_stacks stacks);
+typedef struct s_loop
+{
+	int			i;
+	int			j;
+}				t_loop;
 
-void	swap(t_stacks *stacks, char *str);
-void	rotate_r(t_stacks *stacks, char *str);
-void	rotate_rr(t_stacks *stacks, char *str);
-void	pa(t_stacks *stacks);
-void	pb(t_stacks *stacks);
+typedef struct s_check_arg
+{
+	t_loop		loop;
+	long long	res;
+}				t_check_arg;
+
+int				*set_args(int argc, char **argv);
+int				ft_issort(int *array, int size);
+void			push_swap(t_stacks stacks);
+
+void			swap(t_stacks *stacks, char *str);
+void			rotate_r(t_stacks *stacks, char *str);
+void			rotate_rr(t_stacks *stacks, char *str);
+void			pa(t_stacks *stacks);
+void			pb(t_stacks *stacks);
 
 #endif

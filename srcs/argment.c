@@ -6,28 +6,16 @@
 /*   By: rnakatan <rnakatan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:48:33 by rnakatan          #+#    #+#             */
-/*   Updated: 2024/09/24 07:36:54 by rnakatan         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:33:57 by rnakatan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 #include <stdio.h>
 
-typedef struct s_loop
-{
-	int			i;
-	int			j;
-}				t_loop;
-
-typedef struct s_check_arg
-{
-	t_loop		loop;
-	long long	res;
-}				t_check_arg;
-
-static int		ft_isvalid_args(char **argv);
-static int		*check_duplicates_and_compression(int *array, int size);
-static void		invalid_case_exit(char *str);
+static int	ft_isvalid_args(char **argv);
+static int	*check_duplicates_and_compression(int *array, int size);
+static void	invalid_case_exit(char *str);
 
 int	*set_args(int argc, char **argv)
 {
@@ -35,7 +23,7 @@ int	*set_args(int argc, char **argv)
 	int		*compression_array;
 	t_loop	loop;
 
-	if (argc < 3)
+	if (argc < 2)
 		exit(0);
 	if (ft_isvalid_args(argv) == 0)
 		invalid_case_exit("Error\n");
