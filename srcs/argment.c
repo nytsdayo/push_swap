@@ -6,7 +6,7 @@
 /*   By: rnakatan <rnakatan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:48:33 by rnakatan          #+#    #+#             */
-/*   Updated: 2024/10/30 17:33:57 by rnakatan         ###   ########.fr       */
+/*   Updated: 2024/10/30 19:07:13 by rnakatan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 static int	ft_isvalid_args(char **argv);
 static int	*check_duplicates_and_compression(int *array, int size);
-static void	invalid_case_exit(char *str);
 
 int	*set_args(int argc, char **argv)
 {
@@ -26,10 +25,10 @@ int	*set_args(int argc, char **argv)
 	if (argc < 2)
 		exit(0);
 	if (ft_isvalid_args(argv) == 0)
-		invalid_case_exit("Error\n");
+		return (NULL);
 	array = ft_calloc(argc - 1, sizeof(int));
 	if (array == NULL)
-		exit(1);
+		return (NULL);
 	loop.i = 1;
 	while (argv[loop.i])
 	{
@@ -39,14 +38,8 @@ int	*set_args(int argc, char **argv)
 	compression_array = check_duplicates_and_compression(array, argc - 1);
 	free(array);
 	if (compression_array == NULL)
-		invalid_case_exit("Error\n");
+		return (NULL);
 	return (compression_array);
-}
-
-static void	invalid_case_exit(char *str)
-{
-	write(1, str, ft_strlen(str));
-	exit(1);
 }
 
 static int	ft_isvalid_args(char **argv)
@@ -58,21 +51,21 @@ static int	ft_isvalid_args(char **argv)
 	{
 		chk.loop.j = 0;
 		chk.res = 0;
+		while (ft_isspace(argv[chk.loop.i][chk.loop.j]))
+			chk.loop.j++;
+		while (ft_issign(argv[chk.loop.i][chk.loop.j]))
+			chk.loop.j++;
+		if (!ft_isdigit(argv[chk.loop.i][chk.loop.j]))
+			return (0);
 		while (argv[chk.loop.i][chk.loop.j])
 		{
-			if (!ft_isdigit(argv[chk.loop.i][chk.loop.j])
-				&& !ft_issign(argv[chk.loop.i][chk.loop.j])
-				&& !ft_isspace(argv[chk.loop.i][chk.loop.j]))
+			if (!ft_isdigit(argv[chk.loop.i][chk.loop.j]))
 				return (0);
-			if (!ft_issign(argv[chk.loop.i][chk.loop.j]))
-				chk.res = chk.res * 10 + (argv[chk.loop.i][chk.loop.j] - '0');
-			if ((!ft_strchr(argv[chk.loop.i], '-') && chk.res > INT_MAX)
-				|| (ft_strchr(argv[chk.loop.i], '-') && chk.res * -1 < INT_MIN))
+			chk.res = chk.res * 10 + (argv[chk.loop.i][chk.loop.j] - '0');
+			if (chk.res < INT_MIN || chk.res > INT_MAX)
 				return (0);
 			chk.loop.j++;
 		}
-		if (chk.loop.j == 0 || (chk.res != 0 && ft_atoi(argv[chk.loop.i]) == 0))
-			return (0);
 		chk.loop.i++;
 	}
 	return (1);
