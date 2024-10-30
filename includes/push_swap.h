@@ -6,7 +6,7 @@
 /*   By: rnakatan <rnakatan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 07:41:57 by rnakatan          #+#    #+#             */
-/*   Updated: 2024/10/30 17:32:27 by rnakatan         ###   ########.fr       */
+/*   Updated: 2024/10/30 19:12:07 by rnakatan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct s_check_arg
 }				t_check_arg;
 
 int				*set_args(int argc, char **argv);
-int				ft_issort(int *array, int size);
 void			push_swap(t_stacks stacks);
+int				ft_issort(int *array, int size);
 
 void			swap(t_stacks *stacks, char *str);
 void			rotate_r(t_stacks *stacks, char *str);
