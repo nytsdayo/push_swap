@@ -6,7 +6,7 @@
 /*   By: rnakatan <rnakatan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:48:33 by rnakatan          #+#    #+#             */
-/*   Updated: 2024/10/30 19:07:13 by rnakatan         ###   ########.fr       */
+/*   Updated: 2025/08/16 01:10:27 by rnakatan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,35 +42,6 @@ int	*set_args(int argc, char **argv)
 	return (compression_array);
 }
 
-static int	ft_isvalid_args(char **argv)
-{
-	t_check_arg	chk;
-
-	chk.loop.i = 1;
-	while (argv[chk.loop.i])
-	{
-		chk.loop.j = 0;
-		chk.res = 0;
-		while (ft_isspace(argv[chk.loop.i][chk.loop.j]))
-			chk.loop.j++;
-		while (ft_issign(argv[chk.loop.i][chk.loop.j]))
-			chk.loop.j++;
-		if (!ft_isdigit(argv[chk.loop.i][chk.loop.j]))
-			return (0);
-		while (argv[chk.loop.i][chk.loop.j])
-		{
-			if (!ft_isdigit(argv[chk.loop.i][chk.loop.j]))
-				return (0);
-			chk.res = chk.res * 10 + (argv[chk.loop.i][chk.loop.j] - '0');
-			if (chk.res < INT_MIN || chk.res > INT_MAX)
-				return (0);
-			chk.loop.j++;
-		}
-		chk.loop.i++;
-	}
-	return (1);
-}
-
 static int	*check_duplicates_and_compression(int *array, int size)
 {
 	int		*compressed_array;
@@ -96,4 +67,43 @@ static int	*check_duplicates_and_compression(int *array, int size)
 		loop.i++;
 	}
 	return (compressed_array);
+}
+
+static int	check_sign(char c);
+
+static int	ft_isvalid_args(char **argv)
+{
+	t_check_arg	chk;
+
+	chk.loop.i = 0;
+	chk.sign = 1;
+	while (argv[++chk.loop.i])
+	{
+		chk.loop.j = 0;
+		chk.res = 0;
+		if (ft_issign(argv[chk.loop.i][chk.loop.j]))
+			chk.sign = check_sign(argv[chk.loop.i][chk.loop.j]);
+		if (ft_issign(argv[chk.loop.i][chk.loop.j]))
+			chk.loop.j++;
+		if (!ft_isdigit(argv[chk.loop.i][chk.loop.j]))
+			return (0);
+		while (argv[chk.loop.i][chk.loop.j])
+		{
+			if (!ft_isdigit(argv[chk.loop.i][chk.loop.j]))
+				return (0);
+			chk.res = chk.res * 10 + (argv[chk.loop.i][chk.loop.j++] - '0')
+				* chk.sign;
+			if (chk.res < INT_MIN || chk.res > INT_MAX)
+				return (0);
+		}
+	}
+	return (1);
+}
+
+static int	check_sign(char c)
+{
+	if (c == '+')
+		return (1);
+	else
+		return (-1);
 }

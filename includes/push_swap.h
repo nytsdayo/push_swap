@@ -6,7 +6,7 @@
 /*   By: rnakatan <rnakatan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 07:41:57 by rnakatan          #+#    #+#             */
-/*   Updated: 2024/10/30 19:41:17 by rnakatan         ###   ########.fr       */
+/*   Updated: 2025/08/16 01:04:46 by rnakatan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_check_arg
 {
 	t_loop		loop;
 	long long	res;
+	int			sign;
 }				t_check_arg;
 
 int				*set_args(int argc, char **argv);
