@@ -31,4 +31,12 @@ fclean: clean
 
 re: fclean all
 
+test:
+	git submodule add https://github.com/nafuka11/push_swap_tester.git
+	python3 push_swap_tester/push_swap_tester.py -l 100
+	python3 push_swap_tester/push_swap_tester.py -l 500
+	git submodule deinit -f push_swap_tester
+	git rm -f push_swap_tester
+	rm -rf .git/modules/push_swap_testers 
+
 .PHONY: all clean fclean re

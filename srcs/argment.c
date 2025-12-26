@@ -6,24 +6,11 @@
 /*   By: rnakatan <rnakatan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:48:33 by rnakatan          #+#    #+#             */
-/*   Updated: 2024/09/24 07:36:54 by rnakatan         ###   ########.fr       */
+/*   Updated: 2025/05/06 02:01:28 by rnakatan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-#include <stdio.h>
-
-typedef struct s_loop
-{
-	int			i;
-	int			j;
-}				t_loop;
-
-typedef struct s_check_arg
-{
-	t_loop		loop;
-	long long	res;
-}				t_check_arg;
 
 static int		ft_isvalid_args(char **argv);
 static int		*check_duplicates_and_compression(int *array, int size);

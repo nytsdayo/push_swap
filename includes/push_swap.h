@@ -6,7 +6,7 @@
 /*   By: rnakatan <rnakatan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 07:41:57 by rnakatan          #+#    #+#             */
-/*   Updated: 2024/09/24 07:55:44 by rnakatan         ###   ########.fr       */
+/*   Updated: 2025/05/06 02:03:22 by rnakatan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,17 @@
 # include <stdint.h>
 # include <stdlib.h>
 
+// struct
+typedef struct s_loop
+{
+	int			i;
+	int			j;
+}				t_loop;
+typedef struct s_check_arg
+{
+	t_loop		loop;
+	long long	res;
+}				t_check_arg;
 typedef struct s_stacks
 {
 	int	*stack_a;
@@ -27,8 +38,9 @@ typedef struct s_stacks
 	int	size_b;
 }		t_stacks;
 
+// function
 int		*set_args(int argc, char **argv);
-int		ft_issort(int *array, int size);
+int		ph_issort(const int *array, const int size);
 void	push_swap(t_stacks stacks);
 
 void	swap(t_stacks *stacks, char *str);
