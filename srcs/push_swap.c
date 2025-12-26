@@ -6,7 +6,7 @@
 /*   By: rnakatan <rnakatan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 02:49:08 by rnakatan          #+#    #+#             */
-/*   Updated: 2024/09/24 06:55:31 by rnakatan         ###   ########.fr       */
+/*   Updated: 2024/10/31 03:23:48 by rnakatan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,22 +85,25 @@ static void	bainary_radix_sort(t_stacks *stacks)
 	int	size;
 
 	bit_size = get_bit_size(stacks->size_a);
-	i = 0;
-	while (i < bit_size && !ft_issort(stacks->stack_a, stacks->size_a))
+	i = -1;
+	while (++i < bit_size && !ft_issort(stacks->stack_a, stacks->size_a))
 	{
 		size = stacks->size_a;
-		while (size > 0 && stacks->size_a > 0 && !ft_issort(stacks->stack_a,
-				stacks->size_a))
+		while (--size >= 0 && !ft_issort(stacks->stack_a, stacks->size_a))
 		{
 			if ((stacks->stack_a[0] >> i) & 1)
 				rotate_r(stacks, "ra");
 			else
 				pb(stacks);
-			size--;
 		}
-		while (stacks->size_b > 0)
-			pa(stacks);
-		i++;
+		size = stacks->size_b;
+		while (--size >= 0)
+		{
+			if (i < bit_size - 1 && ((stacks->stack_b[0] >> (i + 1)) & 1) == 0)
+				rotate_r(stacks, "rb");
+			else
+				pa(stacks);
+		}
 	}
 }
 
