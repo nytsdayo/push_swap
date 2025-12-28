@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   argment.c                                          :+:      :+:    :+:   */
+/*   set_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rnakatan <rnakatan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:48:33 by rnakatan          #+#    #+#             */
-/*   Updated: 2025/12/27 08:34:18 by rnakatan         ###   ########.fr       */
+/*   Updated: 2025/01/20 06:55:04 by rnakatan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-#include <stdio.h>
 
-static int	ft_isvalid_args(char **argv);
+static int	check_sign(char c);
 static int	*check_duplicates_and_compression(int *array, int size);
+static int	validate_argument(t_check_arg *chk, char *arg);
+static int	is_valid_args(char **argv);
 
 int	*set_args(int argc, char **argv)
 {
@@ -24,7 +25,7 @@ int	*set_args(int argc, char **argv)
 
 	if (argc < 2)
 		exit(0);
-	if (ft_isvalid_args(argv) == 0)
+	if (is_valid_args(argv) == 0)
 		return (NULL);
 	array = ft_calloc(argc - 1, sizeof(int));
 	if (array == NULL)
@@ -69,9 +70,36 @@ static int	*check_duplicates_and_compression(int *array, int size)
 	return (compressed_array);
 }
 
-static int	check_sign(char c);
+static int	check_sign(char c)
+{
+	if (c == '+')
+		return (1);
+	else
+		return (-1);
+}
 
-static int	ft_isvalid_args(char **argv)
+static int	validate_argument(t_check_arg *chk, char *arg)
+{
+	chk->loop.j = 0;
+	chk->res = 0;
+	if (ft_issign(arg[chk->loop.j]))
+		chk->sign = check_sign(arg[chk->loop.j]);
+	if (ft_issign(arg[chk->loop.j]))
+		chk->loop.j++;
+	if (!ft_isdigit(arg[chk->loop.j]))
+		return (0);
+	while (arg[chk->loop.j])
+	{
+		if (!ft_isdigit(arg[chk->loop.j]))
+			return (0);
+		chk->res = chk->res * 10 + (arg[chk->loop.j++] - '0') * chk->sign;
+		if (chk->res < INT_MIN || chk->res > INT_MAX)
+			return (0);
+	}
+	return (1);
+}
+
+static int	is_valid_args(char **argv)
 {
 	t_check_arg	chk;
 
@@ -79,31 +107,8 @@ static int	ft_isvalid_args(char **argv)
 	chk.sign = 1;
 	while (argv[++chk.loop.i])
 	{
-		chk.loop.j = 0;
-		chk.res = 0;
-		if (ft_issign(argv[chk.loop.i][chk.loop.j]))
-			chk.sign = check_sign(argv[chk.loop.i][chk.loop.j]);
-		if (ft_issign(argv[chk.loop.i][chk.loop.j]))
-			chk.loop.j++;
-		if (!ft_isdigit(argv[chk.loop.i][chk.loop.j]))
+		if (!validate_argument(&chk, argv[chk.loop.i]))
 			return (0);
-		while (argv[chk.loop.i][chk.loop.j])
-		{
-			if (!ft_isdigit(argv[chk.loop.i][chk.loop.j]))
-				return (0);
-			chk.res = chk.res * 10 + (argv[chk.loop.i][chk.loop.j++] - '0')
-				* chk.sign;
-			if (chk.res < INT_MIN || chk.res > INT_MAX)
-				return (0);
-		}
 	}
 	return (1);
-}
-
-static int	check_sign(char c)
-{
-	if (c == '+')
-		return (1);
-	else
-		return (-1);
 }

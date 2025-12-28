@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_issort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rnakatan <rnakatan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 02:49:08 by rnakatan          #+#    #+#             */
-/*   Updated: 2024/10/31 03:23:48 by rnakatan         ###   ########.fr       */
+/*   Created: 2025/01/20 06:42:28 by rnakatan          #+#    #+#             */
+/*   Updated: 2025/01/20 06:42:39 by rnakatan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	push_swap(t_stacks stacks)
+int	ft_issort(int *array, int size)
 {
-	if (stacks.size_a == 2)
+	int	i;
+
+	i = 0;
+	while (i < size - 1)
 	{
-		if (stacks.stack_a[0] > stacks.stack_a[1])
-			swap(&stacks, "sa");
+		if (array[i] > array[i + 1])
+			return (0);
+		i++;
 	}
-	else if (stacks.size_a == 3)
-		three_sort(&stacks);
-	else if (stacks.size_a <= 6)
-		four_to_six_sort(&stacks);
-	else
-		binary_radix_sort(&stacks);
+	return (1);
 }

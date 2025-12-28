@@ -16,27 +16,8 @@
 # include "../Libft/libft.h"
 # include <limits.h>
 # include <stdbool.h>
-# include <stdint.h>
 # include <stdlib.h>
-
-// struct
-typedef struct s_loop
-{
-	int			i;
-	int			j;
-}				t_loop;
-typedef struct s_check_arg
-{
-	t_loop		loop;
-	long long	res;
-}				t_check_arg;
-typedef struct s_stacks
-{
-	int			*stack_a;
-	int			*stack_b;
-	int			size_a;
-	int			size_b;
-}				t_stacks;
+# include <unistd.h>
 
 typedef struct s_loop
 {
@@ -51,8 +32,19 @@ typedef struct s_check_arg
 	int			sign;
 }				t_check_arg;
 
+typedef struct s_stacks
+{
+	int			*stack_a;
+	int			*stack_b;
+	int			size_a;
+	int			size_b;
+}				t_stacks;
+
 int				*set_args(int argc, char **argv);
 void			push_swap(t_stacks stacks);
+void			three_sort(t_stacks *stacks);
+void			four_to_six_sort(t_stacks *stacks);
+void			binary_radix_sort(t_stacks *stacks);
 int				ft_issort(int *array, int size);
 
 void			swap(t_stacks *stacks, char *str);

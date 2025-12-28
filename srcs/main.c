@@ -35,20 +35,6 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-int	ft_issort(int *array, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size - 1)
-	{
-		if (array[i] > array[i + 1])
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 static void	put_error_and_exit(void)
 {
 	write(2, "Error\n", ft_strlen("Error\n"));
