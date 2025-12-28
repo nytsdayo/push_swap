@@ -14,14 +14,14 @@
 
 void	push_swap(t_stacks stacks)
 {
-	if (stacks.size_a == 2)
+	if (stacks.size_a == SORT_THRESHOLD_TWO)
 	{
-		if (stacks.stack_a[0] > stacks.stack_a[1])
+		if (stacks.stack_a[STACK_TOP] > stacks.stack_a[STACK_SECOND])
 			swap(&stacks, "sa");
 	}
-	else if (stacks.size_a == 3)
+	else if (stacks.size_a == SORT_THRESHOLD_THREE)
 		three_sort(&stacks);
-	else if (stacks.size_a <= 6)
+	else if (stacks.size_a <= SORT_THRESHOLD_SIX)
 		four_to_six_sort(&stacks);
 	else
 		binary_radix_sort(&stacks);

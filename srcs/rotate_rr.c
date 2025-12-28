@@ -18,13 +18,13 @@ void	rotate_rr(t_stacks *stacks, char *str)
 {
 	if (ft_strncmp(str, "rra", 3) == 0)
 	{
-		if (stacks->size_a < 2)
+		if (stacks->size_a < MIN_ROTATE_SIZE)
 			return ;
 		rotate_down(stacks->stack_a, stacks->size_a);
 	}
 	else
 	{
-		if (stacks->size_b < 2)
+		if (stacks->size_b < MIN_ROTATE_SIZE)
 			return ;
 		rotate_down(stacks->stack_b, stacks->size_b);
 	}
@@ -40,5 +40,5 @@ static void	rotate_down(int *stack, int size)
 	tmp = stack[i - 1];
 	while (--i > 0)
 		stack[i] = stack[i - 1];
-	stack[0] = tmp;
+	stack[STACK_TOP] = tmp;
 }

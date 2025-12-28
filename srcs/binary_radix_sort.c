@@ -39,7 +39,7 @@ static int	get_bit_size(int size)
 	while (size > 0)
 	{
 		bit_size++;
-		size /= 2;
+		size /= DIVIDE_BY_HALF;
 	}
 	return (bit_size);
 }
@@ -51,7 +51,7 @@ static void	dispatch_to_b(t_stacks *stacks, int bit)
 	size = stacks->size_a;
 	while (--size >= 0 && !ft_issort(stacks->stack_a, stacks->size_a))
 	{
-		if ((stacks->stack_a[0] >> bit) & 1)
+		if ((stacks->stack_a[STACK_TOP] >> bit) & BIT_MASK)
 			rotate_r(stacks, "ra");
 		else
 			pb(stacks);
@@ -65,7 +65,9 @@ static void	restore_to_a(t_stacks *stacks, int bit, int bit_size)
 	size = stacks->size_b;
 	while (--size >= 0)
 	{
-		if (bit < bit_size - 1 && ((stacks->stack_b[0] >> (bit + 1)) & 1) == 0)
+		if (bit < bit_size - 1
+			&& ((stacks->stack_b[STACK_TOP] >> (bit + 1))
+				& BIT_MASK) == 0)
 			rotate_r(stacks, "rb");
 		else
 			pa(stacks);

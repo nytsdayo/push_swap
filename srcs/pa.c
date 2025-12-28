@@ -20,7 +20,7 @@ void	pa(t_stacks *stacks)
 	if (stacks->size_b < 1)
 		return ;
 	shift_up(stacks->stack_a, stacks->size_a);
-	stacks->stack_a[0] = stacks->stack_b[0];
+	stacks->stack_a[STACK_TOP] = stacks->stack_b[STACK_TOP];
 	shift_down(stacks->stack_b, stacks->size_b);
 	stacks->size_a++;
 	stacks->size_b--;

@@ -19,6 +19,16 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define SORT_THRESHOLD_TWO 2
+# define SORT_THRESHOLD_THREE 3
+# define SORT_THRESHOLD_SIX 6
+# define STACK_TOP 0
+# define STACK_SECOND 1
+# define STACK_THIRD 2
+# define MIN_ROTATE_SIZE 2
+# define DIVIDE_BY_HALF 2
+# define BIT_MASK 1
+
 typedef struct s_loop
 {
 	int			i;

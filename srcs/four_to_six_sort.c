@@ -17,19 +17,21 @@ void	four_to_six_sort(t_stacks *stacks)
 	int	half;
 	int	i;
 
-	half = stacks->size_a / 2;
+	half = stacks->size_a / DIVIDE_BY_HALF;
 	i = stacks->size_a;
 	while (i > 0)
 	{
-		if (stacks->stack_a[0] >= half)
+		if (stacks->stack_a[STACK_TOP] >= half)
 			rotate_r(stacks, "ra");
 		else
 			pb(stacks);
 		i--;
 	}
-	if (stacks->size_a == 2 && stacks->stack_a[0] > stacks->stack_a[1])
+	if (stacks->size_a == SORT_THRESHOLD_TWO
+		&& stacks->stack_a[STACK_TOP] > stacks->stack_a[STACK_SECOND])
 		swap(stacks, "sa");
-	if (stacks->size_b == 2 && stacks->stack_b[0] < stacks->stack_b[1])
+	if (stacks->size_b == SORT_THRESHOLD_TWO
+		&& stacks->stack_b[STACK_TOP] < stacks->stack_b[STACK_SECOND])
 		swap(stacks, "sb");
 	three_sort(stacks);
 	while (stacks->size_b > 0)
